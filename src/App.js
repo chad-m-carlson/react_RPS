@@ -18,23 +18,27 @@ class App extends React.Component{
     playerSelection: '',
     playerWins: false,
     computerWins: false,
+    drawGame: false,
     gameActive: false,
   }
 
   handleClick = (e) => {
-    const playerSelection = e.target.name;
-    const computerSelection = ['rock', 'paper', 'scissors'][Math.floor(Math.random() * 3)];
-    console.log(computerSelection);
-    if (playerSelection === computerSelection) {
-      this.setState({ drawGame: true})
+    if (!this.state.gameActive){
+
+      const playerSelection = e.target.name;
+      const computerSelection = ['rock', 'paper', 'scissors'][Math.floor(Math.random() * 3)];
+      console.log(computerSelection);
+      if (playerSelection === computerSelection) {
+        this.setState({ drawGame: true})
       } else if (playerSelection === 'rock' && computerSelection === 'paper' ||   playerSelection === 'scissors' && computerSelection === 'rock' ||         playerSelection === 'paper' && computerSelection === 'scissors'){
-      this.setState({ computerWins: true})
+        this.setState({ computerWins: true})
       } else 
       this.setState({ playerWins: true})
-    this.setState({playerSelection, computerSelection, gameActive: true,});
-    setTimeout(() => {
-      this.resetGame()
-    }, 5000);
+      this.setState({playerSelection, computerSelection, gameActive: true,});
+      setTimeout(() => {
+        this.resetGame()
+      }, 5000);
+    }
   }
 
   resetGame = () => {
@@ -57,8 +61,7 @@ class App extends React.Component{
               <Image
                 src={image.image}
                 name={image.name}
-                onClick={this.handleClick
-                }
+                onClick={this.handleClick}
                 />
             </Grid.Column>
           ))}
