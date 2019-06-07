@@ -1,15 +1,16 @@
 import React from 'react'
 import {Image, } from 'semantic-ui-react';
 
-const DisplayPlayerPlays = (props) => {
-  const {images, playerSel} = props
-  const [...x] = images
-  if (playerSel === 'rock') 
-    return <Image src={x[0].image } />
-  if (playerSel === 'paper')
-    return <Image src={x[1].image} />
-  if (playerSel === 'scissors')
-    return <Image src={x[2].image} />
-}
+const DisplayPlayerPlays = (props) => (
+      props.images.map(choice => {
+      if (choice.name === props.playerSel){
+        return <div>
+                <h1> You Played</h1>
+                <Image src={choice.image}/>
+              </div>
+      };
+    })
+)
+
 
 export default DisplayPlayerPlays

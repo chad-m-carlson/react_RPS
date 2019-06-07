@@ -1,23 +1,38 @@
-import React from 'react';
-import {Image, Grid, } from 'semantic-ui-react';
+// import React from 'react';
+// import WriteResults from './WriteResults';
+// import {Image, Grid, } from 'semantic-ui-react';
 
-  // class Choices extends React.Component{
+// class Choices extends React.Component{
+//   state = {
+//     // activeGame: false,
+//     // event: '',
+    
+//   }
 
-  const Choices = ({images,  playerClicked}) => {
+//   handleClick = (e) => {
+//     const playerSelection = e.target.name;
+//     const computerSelection = ['rock', 'paper', 'scissors'][Math.floor(Math.random() * 3)];
+//       debugger
+//   }
+
+
+render() {
       return (
         <Grid>
-          {images.map(image =>(
+          {this.props.images.map(image =>(
             <Grid.Column key={image.id} width={3}>
               <Image
                 src={image.image}
                 name={image.name}
-                onClick={playerClicked}
+                onClick={this.handleClick
+                }
                 />
+              {this.state.activeGame ? <WriteResults active={this.state.activeGame} event={this.state.event}/> : null}
             </Grid.Column>
           ))}
-        </Grid>
-      )
-  }
+//         </Grid>
+//       )
+//   }
+// }
 
-
-export default Choices;
+// export default Choices;
