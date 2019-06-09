@@ -42,7 +42,7 @@ class App extends React.Component{
       this.setState({playerSelection, computerSelection, gameActive: true,});
       setTimeout(() => {
         this.resetGame()
-      }, 5000);
+      }, 3000);
     };
   };
 
@@ -106,7 +106,8 @@ class App extends React.Component{
         </Container>
     )
   }
-
 }
+
+
 
 export default App;
