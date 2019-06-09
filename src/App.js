@@ -1,6 +1,6 @@
 import React from 'react';
-// import Choices from './Components/Choices';
-import WriteResults from './Components/WriteResults'
+import LogResults from './Components/LogResults';
+import WriteResults from './Components/WriteResults';
 import DisplayPlayerPlays from './Components/DisplayPlayerPlays';
 import DisplayComputerPlays from './Components/DisplayComputerPlays';
 // import PlayGame from './Components/PlayGame';
@@ -20,37 +20,42 @@ class App extends React.Component{
     computerWins: false,
     drawGame: false,
     gameActive: false,
-  }
+    totalPlayerWins: 0,
+    totalComputerWins: 0,
+    totalDraws: 0,
+  };
 
   handleClick = (e) => {
+    const {totalDraws, totalComputerWins, totalPlayerWins} = this.state
     if (!this.state.gameActive){
-
       const playerSelection = e.target.name;
       const computerSelection = ['rock', 'paper', 'scissors'][Math.floor(Math.random() * 3)];
-      console.log(computerSelection);
       if (playerSelection === computerSelection) {
-        this.setState({ drawGame: true})
-      } else if (playerSelection === 'rock' && computerSelection === 'paper' ||   playerSelection === 'scissors' && computerSelection === 'rock' ||         playerSelection === 'paper' && computerSelection === 'scissors'){
-        this.setState({ computerWins: true})
-      } else 
-      this.setState({ playerWins: true})
+        this.setState({ drawGame: true ,
+                        totalDraws: totalDraws+ 1,});
+        } else if (playerSelection === 'rock' && computerSelection === 'paper' ||   playerSelection === 'scissors' && computerSelection === 'rock' ||         playerSelection === 'paper' && computerSelection === 'scissors'){
+          this.setState({ computerWins: true,
+                          totalComputerWins: totalComputerWins + 1,})
+          } else 
+          this.setState({ playerWins: true,
+                          totalPlayerWins:  totalPlayerWins + 1, });
       this.setState({playerSelection, computerSelection, gameActive: true,});
       setTimeout(() => {
         this.resetGame()
       }, 5000);
-    }
-  }
+    };
+  };
 
   resetGame = () => {
     this.setState({
       gameActive: false,
       computerSelection: '',
       playerSelection: '',
-      plaherWins: false,
+      playerWins: false,
       computerWins: false,
+      drawGame: false,
     })
   }
-
   render() {
     return(
       <Container style={{ marginTop: "25px"}}>
@@ -65,6 +70,11 @@ class App extends React.Component{
                 />
             </Grid.Column>
           ))}
+          <LogResults
+            totalPlayerWins={this.state.totalPlayerWins}
+            totalComputerWins={this.state.totalComputerWins}
+            totalDraws={this.state.totalDraws}
+          />
         </Grid>
         {this.state.gameActive && 
         <WriteResults 
